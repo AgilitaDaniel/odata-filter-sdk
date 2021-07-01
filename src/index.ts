@@ -1,11 +1,10 @@
 // const {snakeCase} = require('change-case');
-import {snakeCase} from 'change-case';
+import { snakeCase } from 'change-case';
 export const Greeter = (name: string) => `Hello ${name}`;
 
-
 enum TypeFields {
-    eq = 'equals',
-    ne = 'notEquals'
+  eq = 'equals',
+  ne = 'notEquals',
 }
 
 export class Parser {
@@ -32,10 +31,10 @@ export class Parser {
     const regex = this.regex;
     const filters = [];
     while (true) {
-        const m = regex.exec(url)
-        if (m === null) {
-            break;
-          }
+      const m = regex.exec(url);
+      if (m === null) {
+        break;
+      }
       if (m.index === regex.lastIndex) {
         regex.lastIndex++;
       }
@@ -43,14 +42,14 @@ export class Parser {
     }
     return filters;
   }
-  filtersInSnakeCase(filters: any[] = [] ){
+  filtersInSnakeCase(filters: any[] = []) {
     const myFilters = filters.length === 0 ? this.findFilters() : filters;
-    return myFilters.map( (filter: {field: string, operator: TypeFields, value: string} ) => {
-        return {
-            field: snakeCase(filter.field).toUpperCase(),
-            operator: [filter.operator] as any,
-            value: filter.value,
-        }
+    return myFilters.map((filter: { field: string; operator: TypeFields; value: string }) => {
+      return {
+        field: snakeCase(filter.field).toUpperCase(),
+        operator: [filter.operator] as any,
+        value: filter.value,
+      };
     });
   }
 }
