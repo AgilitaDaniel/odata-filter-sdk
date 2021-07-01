@@ -16,5 +16,5 @@ it('Pretty URL', () => {
 it('filters in Snake Case', () => {
   const req = { url: "/Customers?$filter=agiBrandSCOR_KUT%20eq%20true%20and%20agiWebshopCustomer_KUT%20eq%20%271%27'" };
   const obj = new Parser(req);
-  expect(obj.filtersInSnakeCase()[1].field).toBe("AGI_WEBSHOP_CUSTOMER_KUT");
+  expect(obj.filtersInSnakeCase()[1].field).toBe('AGI_WEBSHOP_CUSTOMER_KUT');
 });
