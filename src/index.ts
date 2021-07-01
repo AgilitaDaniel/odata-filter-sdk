@@ -1,4 +1,5 @@
-const {snakeCase} = require('change-case');
+// const {snakeCase} = require('change-case');
+import {snakeCase} from 'change-case';
 export const Greeter = (name: string) => `Hello ${name}`;
 
 
@@ -18,36 +19,36 @@ export class Parser {
 
   getPrettyUrl() {
     const originalURL: string = this.req._ && this.req._.req ? this.req._.req.url : this.req.url;
-    if (!originalURL) throw 'No Valid URL';
-    const urlArray: Array<string> = originalURL.split('?');
-    if (urlArray && urlArray.length !== 2) throw 'No Query found';
+    if (!originalURL) throw new Error('No Valid URL');
+    const urlArray: string[] = originalURL.split('?');
+    if (urlArray && urlArray.length !== 2) throw new Error('No Query found');
 
     return decodeURI(urlArray[1]);
   }
 
   findFilters() {
-    let m;
+    // let m;
     const url: string = this.getPrettyUrl();
-    let regex = this.regex;
-    var filters = [];
-    while ((m = regex.exec(url)) !== null) {
-      // This is necessary to avoid infinite loops with zero-width matches
+    const regex = this.regex;
+    const filters = [];
+    while (true) {
+        const m = regex.exec(url)
+        if (m === null) {
+            break;
+          }
       if (m.index === regex.lastIndex) {
         regex.lastIndex++;
       }
-    //   if(m && m.groups && m.groups.value){
-    //     console.log("ffffff" , m.groups.value)
-    //   }
       filters.push(m.groups);
     }
     return filters;
   }
-  filtersInSnakeCase(filters: Array<any> = [] ){
-    var myFilters = filters.length === 0 ? this.findFilters() : filters;
-    return myFilters.map( (filter: {field: String, operator: TypeFields, value: String} ) => {
+  filtersInSnakeCase(filters: any[] = [] ){
+    const myFilters = filters.length === 0 ? this.findFilters() : filters;
+    return myFilters.map( (filter: {field: string, operator: TypeFields, value: string} ) => {
         return {
             field: snakeCase(filter.field).toUpperCase(),
-            operator: (<any>TypeFields)[filter.operator],
+            operator: [filter.operator],
             value: filter.value,
         }
     });
