@@ -4,5 +4,5 @@ test('My Greeter', () => {
 });
 
 test('parser Test', () => {
-  expect(parser('Carl')).toBe('hallo');
+  expect(parser({name:'Carl'})).toBe('hallo');
 });
