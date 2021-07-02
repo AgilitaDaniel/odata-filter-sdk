@@ -17,8 +17,8 @@ export class Parser {
   }
 
   getPrettyUrl() {
-    const req = this.req._  ? this.req._.req : this.req;
-    const originalURL: string = req.url  || req.originalURL;
+    const req = this.req._ ? this.req._.req : this.req;
+    const originalURL: string = req.url || req.originalURL;
     if (!originalURL) throw new Error('No Valid URL');
     const urlArray: string[] = originalURL.split('?');
     if (urlArray && urlArray.length !== 2) throw new Error('No Query found');
