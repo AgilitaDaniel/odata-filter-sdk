@@ -2,6 +2,7 @@
 import { snakeCase } from 'change-case';
 export const Greeter = (name: string) => `Hello ${name}`;
 
+
 enum TypeFields {
   eq = 'equals',
   ne = 'notEquals',
@@ -45,9 +46,10 @@ export class Parser {
   filtersInSnakeCase(filters: any[] = []) {
     const myFilters = filters.length === 0 ? this.findFilters() : filters;
     return myFilters.map((filter: { field: string; operator: TypeFields; value: string }) => {
+      const enumVal: TypeFields = (<any>TypeFields[filter.operator];
       return {
         field: snakeCase(filter.field).toUpperCase(),
-        operator: [filter.operator] as any,
+        operator: enumVal,
         value: filter.value,
       };
     });
