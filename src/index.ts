@@ -2,7 +2,6 @@
 import { snakeCase } from 'change-case';
 export const Greeter = (name: string) => `Hello ${name}`;
 
-
 enum TypeFields {
   eq = 'equals',
   ne = 'notEquals',
