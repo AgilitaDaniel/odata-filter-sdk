@@ -46,7 +46,7 @@ export class Parser {
   filtersInSnakeCase(filters: any[] = []) {
     const myFilters = filters.length === 0 ? this.findFilters() : filters;
     return myFilters.map((filter: { field: string; operator: TypeFields; value: string }) => {
-      const enumVal: TypeFields = (<any>TypeFields[filter.operator];
+      const enumVal: TypeFields = (<any>TypeFields)[filter.operator];
       return {
         field: snakeCase(filter.field).toUpperCase(),
         operator: enumVal,
