@@ -10,7 +10,7 @@ enum TypeFields {
 export class Parser {
   private req: any;
   private regex: RegExp =
-  /(?:(?<field>[^= ]+?)\s+(?<operator>eq|ne|gt|ge|lt|le|add|sub|mul|div|mod|)\s+'?(?<value>[^&$' ]+)'?)/gm;
+    /(?:(?<field>[^= ]+?)\s+(?<operator>eq|ne|gt|ge|lt|le|add|sub|mul|div|mod|)\s+'?(?<value>[^&$' ]+)'?)/gm;
 
   constructor(req: any) {
     this.req = req;

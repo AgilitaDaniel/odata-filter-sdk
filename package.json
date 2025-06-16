@@ -1,6 +1,6 @@
 {
   "name": "odata-filter-sdk",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "OData Filter to Cloud SDK",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
