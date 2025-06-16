@@ -1,5 +1,5 @@
-const {snakeCase} = require('change-case');
-// import { snakeCase } from 'change-case';
+// const {snakeCase} = require('change-case');
+import { snakeCase } from 'change-case';
 export const Greeter = (name: string) => `Hello ${name}`;
 
 enum TypeFields {
