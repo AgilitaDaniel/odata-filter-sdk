@@ -15,7 +15,7 @@ interface ParserResult {
 class Parser {
   private req: any;
   private regex: RegExp =
-    /(?:(?<field>[^= ()]+)\s+(?<operator>eq|ne|gt|ge|lt|le|add|sub|mul|div|mod)\s+'?(?<value>true|false|[^&$' ()]+)'?|(?<operator>contains)\((?<field>[^,()]+),\s*'(?<value>[^']+)'\))/gim;
+    /(?:(?<field>[^= ()]+)\s+(?<operator>eq|ne|gt|ge|lt|le|add|sub|mul|div|mod)\s+'?(?<value>true|false|[^&$' ()]+)'?|(?<operator2>contains)\((?<field2>[^,()]+),\s*'(?<value2>[^']+)'\))/gim;
 
   constructor(req: any) {
     this.req = req;
@@ -44,7 +44,15 @@ class Parser {
       if (m.index === regex.lastIndex) {
         regex.lastIndex++;
       }
-      filters.push(m.groups);
+      const groups = m.groups || {};
+      const normalized = groups.field
+        ? groups
+        : {
+            field: groups.field2,
+            operator: groups.operator2,
+            value: groups.value2,
+          };
+      filters.push(normalized);
     }
     return filters;
   }
