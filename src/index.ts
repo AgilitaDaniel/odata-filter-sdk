@@ -62,4 +62,5 @@ class Parser {
   }
 }
 
-export { Parser, ParserResult };
+export { Parser };
+export type { ParserResult };
