@@ -1,22 +1,27 @@
-// const {snakeCase} = require('change-case');
 import { snakeCase } from 'change-case';
-export const Greeter = (name: string) => `Hello ${name}`;
 
 enum TypeFields {
   eq = 'equals',
   ne = 'notEquals',
+  contains = 'contains',
 }
 
-export class Parser {
+interface ParserResult {
+  field: string;
+  operator: TypeFields;
+  value: string;
+}
+
+class Parser {
   private req: any;
   private regex: RegExp =
-    /(?:(?<field>[^= ]+?)\s+(?<operator>eq|ne|gt|ge|lt|le|add|sub|mul|div|mod|)\s+'?(?<value>[^&$' ]+)'?)/gm;
+    /(?:(?<field>[^= ()]+)\s+(?<operator>eq|ne|gt|ge|lt|le|add|sub|mul|div|mod)\s+'?(?<value>true|false|[^&$' ()]+)'?|(?<operator>contains)\((?<field>[^,()]+),\s*'(?<value>[^']+)'\))/gim;
 
   constructor(req: any) {
     this.req = req;
   }
 
-  getPrettyUrl() {
+  getPrettyUrl(): string {
     const req = this.req._ ? this.req._.req : this.req;
     const originalURL: string = req.url || req.originalURL;
     if (!originalURL) throw new Error('No Valid URL');
@@ -43,7 +48,8 @@ export class Parser {
     }
     return filters;
   }
-  filtersInSnakeCase(filters: any[] = []) {
+
+  filtersInSnakeCase(filters: any[] = []): ParserResult[] {
     const myFilters = filters.length === 0 ? this.findFilters() : filters;
     return myFilters.map((filter: { field: string; operator: TypeFields; value: string }) => {
       const enumVal: TypeFields = (<any>TypeFields)[filter.operator];
@@ -56,6 +62,5 @@ export class Parser {
   }
 }
 
-export const parser = (req: object) => {
-  return 'hallo';
-};
+export { Parser };
+export type { ParserResult };
